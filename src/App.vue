@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" />
-    <AddTask @add-task="addTask" />
+    <Header @toggle-add-task="toggleAddTask" title="Task Tracker" />
+    <div v-show="showAddTask">
+      <AddTask @add-task="addTask" />
+    </div>
     <Tasks
       @toggle-reminder="toggleReminder"
       @delete-task="deleteTask"
@@ -11,70 +13,74 @@
 </template>
 
 <script>
-import Header from './components/Header'
-import Tasks from './components/Tasks'
-import AddTask from './components/AddTask'
+import Header from "./components/Header";
+import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
     Tasks,
-    AddTask
+    AddTask,
   },
   data() {
     return {
       tasks: [],
-    }
+      showAddTask: false,
+    };
   },
   methods: {
     addTask(task) {
-      this.tasks = [...this.tasks, task]
+      this.tasks = [...this.tasks, task];
     },
     deleteTask(id) {
-      if (confirm('Are you sure?')) {
-        this.tasks = this.tasks.filter((task) => task.id !== id)
+      if (confirm("Are you sure?")) {
+        this.tasks = this.tasks.filter((task) => task.id !== id);
       }
     },
     toggleReminder(id) {
-      this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
-    }
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
+    },
   },
   created() {
     //tasks will be passed to tasks component
     //to be rendered on the page
     this.tasks = [
-    {
-      id: 1,
-      text: 'Soccer Practice',
-      day: 'September 29th at 21:00',
-      reminder: true,
-    },
-    {
-      id: 2,
-      text: 'Grocery Shop',
-      day: 'October 1 at 11:00',
-      reminder: true,
-    },
-    {
-      id: 3,
-      text: 'Swim',
-      day: 'October 2 at 21:00',
-      reminder: false,
-    }]
-  }
-}
+      {
+        id: 1,
+        text: "Soccer Practice",
+        day: "September 29th at 21:00",
+        reminder: true,
+      },
+      {
+        id: 2,
+        text: "Grocery Shop",
+        day: "October 1 at 11:00",
+        reminder: true,
+      },
+      {
+        id: 3,
+        text: "Swim",
+        day: "October 2 at 21:00",
+        reminder: false,
+      },
+    ];
+  },
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 .container {
   max-width: 500px;
