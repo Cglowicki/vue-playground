@@ -19,7 +19,14 @@ export default {
     Tasks
   },
   data() {
-    tasks: []
+    return {
+      tasks: [],
+    }
+  },
+  methods: {
+    deleteTask(id) {
+      console.log('task', id)
+    }
   },
   created() {
     //tasks will be passed to tasks component
