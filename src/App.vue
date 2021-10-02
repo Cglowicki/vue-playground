@@ -38,7 +38,7 @@ export default {
       id: 3,
       text: 'Swim',
       day: 'October 2 at 21:00',
-      reminder: true,
+      reminder: false,
     }]
   }
 }
