@@ -44,6 +44,9 @@ export default {
         task.id === id ? { ...task, reminder: !task.reminder } : task
       );
     },
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask;
+    },
   },
   created() {
     //tasks will be passed to tasks component
