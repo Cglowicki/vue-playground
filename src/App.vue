@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <Header 
-      @toggle-add-task="toggleAddTask" 
-      title="Task Tracker" 
+    <Header
+      @toggle-add-task="toggleAddTask"
+      title="Task Tracker"
       :showAddTask="showAddTask"
     />
     <div v-show="showAddTask">
@@ -51,30 +51,18 @@ export default {
     toggleAddTask() {
       this.showAddTask = !this.showAddTask;
     },
+    async fetchTasks() {
+      const res = await fetch("http://localhost:5000/tasks");
+
+      const data = await res.json();
+
+      return data;
+    },
   },
-  created() {
+  async created() {
     //tasks will be passed to tasks component
     //to be rendered on the page
-    this.tasks = [
-      {
-        id: 1,
-        text: "Soccer Practice",
-        day: "September 29th at 21:00",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: "Grocery Shop",
-        day: "October 1 at 11:00",
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: "Swim",
-        day: "October 2 at 21:00",
-        reminder: false,
-      },
-    ];
+    this.tasks = await this.fetchTasks();
   },
 };
 </script>
